@@ -1,201 +1,73 @@
-#!/usr/bin/env python2.3
-# -*- coding: utf-8 -*-
-
-
-import os, sys
-import getopt
-
-# E importaremos o pygame tambem para esse exemplo
 import pygame
-from pygame.locals import *
-
-images_dir = os.path.join( "..", "imagens" )
-
-
-class Background:
-    """
-    Esta classe representa o ator "Fundo" do jogo.
-    """
-    image = None
-
-    def __init__( self ):
-        screen = pygame.display.get_surface()
-        back   = pygame.Surface( screen.get_size() ).convert()
-        back.fill( ( 0, 0, 0 ) )
-        self.image = back
-    # __init__()
+import sys
+import random
 
 
-
-    def update( self, dt ):
-        pass # Ainda não faz nada
-    # update()
-
-
-
-    def draw( self, screen ):
-        screen.blit( self.image, ( 0, 0 ) )
-    # draw()
-# Background
-
-
+def mov_player(player_X, player_Y):
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and player_X > 1:
+        player_X -= 1
+    if keys[pygame.K_RIGHT] and player_X < 550:
+        player_X += 1
+    if keys[pygame.K_UP] and player_Y > 1:
+        player_Y -= 1
+    if keys[pygame.K_DOWN] and player_Y < 630:
+        player_Y += 1
+    return player_X, player_Y
 
 
-class Game:
-    screen      = None
-    screen_size = None
-    run         = True
-    background  = None
+pygame.init()
 
-    def __init__( self, size, fullscreen ):
-        """
-        Esta é a função que inicializa o pygame, define a resolução da tela,
-        caption, e disabilitamos o mouse dentro desta.
-        """
-        actors = {}
-        pygame.init()
-        flags = DOUBLEBUF
-        if fullscreen:
-            flags |= FULLSCREEN
-        self.screen       = pygame.display.set_mode( size, flags )
-        self.screen_size = self.screen.get_size()
+X = 600
+Y = 680
 
-        pygame.mouse.set_visible( 0 )
-        pygame.display.set_caption( 'Título da Janela' )
-    # init()
+screen = pygame.display.set_mode((X, Y))
+pygame.display.set_caption("mon jeux")
 
+player = pygame.image.load("assets/player.png").convert_alpha()
+player = pygame.transform.scale(player, (50, 50))
 
+player_X = 250
+player_Y = 600
 
-    def handle_events( self ):
-        """
-        Trata o evento e toma a ação necessária.
-        """
-        for event in pygame.event.get():
-            t = event.type
-            if t in ( KEYDOWN, KEYUP ):
-                k = event.key
+Enemy1 = pygame.image.load("assets/Enamie_X.png").convert_alpha()
+Enemy1 = pygame.transform.scale(Enemy1, (50, 50))
 
-            if t == QUIT:
-                self.run = False
+Enemy1_X = 250
+Enemy1_Y = -50
 
-            elif t == KEYDOWN:
-                if   k == K_ESCAPE:
-                    self.run = False
-    # handle_events()
+Enemy2 = pygame.image.load("assets/Enamie_Y.png").convert_alpha()
+Enemy2 = pygame.transform.scale(Enemy2, (50, 50))
+
+Enemy2_X = 250
+Enemy2_Y = -50
+
+marche = True
 
 
+def respawn():
+    X = random.randint(1, 550)
+    Y = 1
+    return [Y, X]
 
 
-    def actors_update( self, dt ):
-        self.background.update( dt )
-    # actors_update()
+while marche:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            marche = False
 
+    screen.fill((255, 255, 255))
 
+    if Enemy1_Y == 680 and Enemy2_Y == 680:
+        Enemy1_Y, Enemy1_X = respawn()
+        Enemy2_Y, Enemy2_X = respawn()
 
-    def actors_draw( self ):
-        self.background.draw( self.screen )
-    # actors_draw()
+    Enemy1_Y += 1
+    Enemy2_Y += 1
 
+    player_X, player_Y = mov_player(player_X, player_Y)
+    screen.blit(player, (player_X, player_Y))
+    screen.blit(Enemy1, (Enemy1_X, Enemy1_Y))
+    screen.blit(Enemy2, (Enemy2_X, Enemy2_Y))
 
-
-    def loop( self ):
-        """
-        Laço principal
-        """
-        # Criamos o fundo
-        self.background = Background()
-
-        # Inicializamos o relogio e o dt que vai limitar o valor de
-        # frames por segundo do jogo
-        clock         = pygame.time.Clock()
-        dt            = 16
-
-
-        # assim iniciamos o loop principal do programa
-        while self.run:
-            clock.tick( 1000 / dt )
-
-            # Handle Input Events
-            self.handle_events()
-
-            # Atualiza Elementos
-            self.actors_update( dt )
-
-            # Desenhe para o back buffer
-            self.actors_draw()
-
-            # ao fim do desenho temos que trocar o front buffer e o back buffer
-
-        # while self.run
-    # loop()
-# Game
-
-
-
-def parse_opts( argv ):
-    """
-    Pega as informações da linha de comando e retorna
-    """
-    # Analise a linha de commando usando 'getopt'
-    try:
-        opts, args = getopt.gnu_getopt( argv[ 1 : ],
-                                        "hfr:",
-                                        [ "help",
-                                          "fullscreen",
-                                          "resolution=" ] )
-    except getopt.GetoptError:
-        # imprime informacao e sai
-        usage()
-        sys.exit( 2 )
-
-    options = {
-        "fullscreen":  False,
-        "resolution": ( 640, 480 ),
-        }
-
-    for o, a in opts:
-        if o in ( "-f", "--fullscreen" ):
-            options[ "fullscreen" ] = True
-        elif o in ( "-h", "--help" ):
-            usage()
-            sys.exit( 0 )
-        elif o in ( "-r", "--resolution" ):
-            a = a.lower()
-            r = a.split( "x" )
-            if len( r ) == 2:
-                options[ "resolution" ] = r
-                continue
-
-            r = a.split( "," )
-            if len( r ) == 2:
-                options[ "resolution" ] = r
-                continue
-
-            r = a.split( ":" )
-            if len( r ) == 2:
-                options[ "resolution" ] = r
-                continue
-    # for o, a in opts
-    r = options[ "resolution" ]
-    options[ "resolution" ] = [ int( r[ 0 ] ), int( r[ 1 ] ) ]
-    return options
-# parse_opts()
-
-
-
-def main( argv ):
-    #primeiro vamos verificar que estamos no diretorio certo para conseguir
-    #encontrar as imagens e outros recursos, e inicializar o pygame com as
-    #opcoes passadas pela linha de comando
-    fullpath = os.path.abspath( argv[ 0 ] )
-    dir = os.path.dirname( fullpath )
-    os.chdir( dir )
-
-    options = parse_opts( argv )
-    game = Game( options[ "resolution" ], options[ "fullscreen" ] )
-    game.loop()
-# main()
-
-# este comando fala para o python chamar o main se estao executando o script
-if __name__ == '__main__':
-    main( sys.argv )
+    pygame.display.update()
