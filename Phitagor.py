@@ -36,19 +36,12 @@ arrow_X = 250
 arrow_Y = 620
 
 marche = True
+triggered = False
 
 def respawn():
     X = random.randint(1, 550)
     Y = -10
     return [Y, X]
-
-def respawn_arrow():
-    global arrow_Y
-    triggered = False
-    respawn_arrow_X = arrow_X
-    respawn_arrow_Y = arrow_Y
-    arrow_Y = -2
-    return (respawn_arrow_X, respawn_arrow_Y, arrow_Y)
 
 while marche:
     for event in pygame.event.get():
@@ -56,13 +49,18 @@ while marche:
             marche = False
 
     screen.fill((255, 255, 255))
-
-    triggered = False
-
+    
     keys = pygame.key.get_pressed()
     if keys[pygame.K_SPACE]:
         triggered = True
         arrow_Y += -1
+    def respawn_arrow():
+        global arrow_Y
+        triggered = False
+        respawn_arrow_X = arrow_X
+        respawn_arrow_Y = arrow_Y
+        arrow_Y = -2
+    return (respawn_arrow_X, respawn_arrow_Y, arrow_Y)
 
     if Enemy1_Y == 680 and Enemy2_Y == 680:
         Enemy1_Y, Enemy1_X = respawn()
