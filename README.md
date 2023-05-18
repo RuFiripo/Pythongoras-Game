@@ -9,3 +9,4 @@ Un neuvo etap:
      ( ) Faire un Quiz (Optionnel)
      ( ) Image illustrative
      ( ) Aperçu du questionnaire (Optionnel)
+# maintenant le jeu est jouable
