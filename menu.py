@@ -14,12 +14,6 @@ def mostrar_menu():
                 sys.exit()
             elif evento.type == pygame.MOUSEBUTTONDOWN:
                 if batom_play.collidepoint(evento.pos):
-                    screen.fill((0, 0, 0))  
-
-                    game_over_text = font.render("Game Over", True, (255, 255, 255))
-                    text_rect = game_over_text.get_rect(center=(X // 2, Y // 2))
-                    screen.blit(game_over_text, text_rect)
-                    
                     pygame.time.delay(100)
                     iniciar_jogo()
 
