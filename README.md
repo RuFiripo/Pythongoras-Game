@@ -14,5 +14,5 @@ Un neuvo etap:
    - @CodeDareProgramacao:
         Code du jeu
    - ChatGPT:
-        structure de code
+        l'organisation de code et
         résolution de problèmes
