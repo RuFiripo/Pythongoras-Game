@@ -10,9 +10,9 @@ Un neuvo etap:
      ( ) Image illustrative
      ( ) Aperçu du questionnaire (Optionnel)
      
-     # crédits :
-     - @CodeDareProgramacao
-        Code du jeu
-     - ChatGPT
-        structure de code
-        résolution de problèmes
+ # crédits :
+   - @CodeDareProgramacao
+      Code du jeu
+   - ChatGPT
+      structure de code
+      résolution de problèmes
