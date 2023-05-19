@@ -11,8 +11,8 @@ Un neuvo etap:
      ( ) Aperçu du questionnaire (Optionnel)
      
  # crédits :
-   - @CodeDareProgramacao
+   - @CodeDareProgramacao:
       Code du jeu
    - ChatGPT
-      structure de code
+      structure de code:
       résolution de problèmes
