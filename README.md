@@ -12,7 +12,7 @@ Un neuvo etap:
      
  # crédits :
    - @CodeDareProgramacao:
-      Code du jeu
-   - ChatGPT
-      structure de code:
-      résolution de problèmes
+        Code du jeu
+   - ChatGPT:
+        structure de code
+        résolution de problèmes
