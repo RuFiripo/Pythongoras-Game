@@ -55,7 +55,7 @@ font = pygame.font.Font(None, 36)
 timer_font = pygame.font.Font(None, 48)  
 
 start_ticks = pygame.time.get_ticks() 
-game_duration = 2 * 60 * 1000  
+game_duration = 1 * 60 * 1000  
 
 def respawn():
     X = random.randint(1, 500)
@@ -196,9 +196,7 @@ while marche:
         screen.blit(game_over_text, text_rect)
 
         pygame.display.flip()
+        pygame.time.delay(800)
+        import menu
 
-        while game_over:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+        
