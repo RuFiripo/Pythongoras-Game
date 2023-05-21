@@ -5,11 +5,18 @@ from PIL import Image
 
 pygame.init()
 
+music_background = pygame.mixer.music.load("assets/LostCompanionTomboFry.mp3")
+pygame.mixer.music.play()
+pygame.mixer.music.set_volume(0.2)
+
 lar = 550
 hut = 700
 
 screen = pygame.display.set_mode((lar, hut))
 pygame.display.set_caption("Menu")
+
+
+
 
 gif_path = "assets/bg.gif"
 clip = VideoFileClip(gif_path)
@@ -27,6 +34,7 @@ for t in range(0, int(clip.duration * fps)):
 fonte = pygame.font.Font(None, 30)
 texto_play = fonte.render("Play", True, (0, 0, 0))
 texto_quit = fonte.render("Quit", True, (0, 0, 0))
+Title = fonte.render("Pythongoras-Game", True, (255, 255, 255))
 
 def mostrar_menu():
     frame_index = 0
@@ -46,6 +54,10 @@ def mostrar_menu():
                     sys.exit()
 
         screen.blit(frames[frame_index], (0, 0))
+        
+        batom_Title = pygame.Rect(190, 100 + 50, 150, 50)
+        pos_text_Title = Title.get_rect(center=batom_Title.center)
+        screen.blit(Title, pos_text_Title)
 
         batom_play = pygame.Rect(lar/2 - 75, hut/2 + 50, 150, 50)
         pygame.draw.rect(screen, (255, 255, 255), batom_play)

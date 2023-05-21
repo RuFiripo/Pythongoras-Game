@@ -4,6 +4,12 @@ import sys
 
 pygame.init()
 
+music_background = pygame.mixer.music.load("assets/Ayoshutduff & Geckojsc - STAR SHIELD - Cover Art Pixel Process.mp3")
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.2)
+
+Hit = pygame.mixer.Sound("assets/low-impactwav-14905.wav")
+
 X = 550
 Y = 700
 keys = pygame.key.get_pressed()
@@ -190,13 +196,16 @@ while marche:
 
     if game_over:
         screen.fill((0, 0, 0))  
-
+        
+        pygame.mixer.music.pause()
+        Hit.play()
+        
         game_over_text = font.render("Game Over", True, (255, 255, 255))
         text_rect = game_over_text.get_rect(center=(X // 2, Y // 2))
         screen.blit(game_over_text, text_rect)
-
+        
         pygame.display.flip()
-        pygame.time.delay(800)
+        pygame.time.delay(1000)
         import menu
 
         

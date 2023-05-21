@@ -32,6 +32,7 @@ def mostrar_menu():
                 sys.exit()
             elif evento.type == pygame.MOUSEBUTTONDOWN:
                 if batom_game1.collidepoint(evento.pos):
+                    pygame.mixer.music.pause()
                     import Quiz
 
                 elif batom_game2.collidepoint(evento.pos):
@@ -44,6 +45,7 @@ def mostrar_menu():
                         screen.blit(texto_info1, pos_text_info1)
                     
                     elif win == True:
+                        pygame.mixer.music.pause()
                         import Phitagor
 
 
@@ -67,9 +69,5 @@ def mostrar_menu():
 
         pygame.display.flip()
 
-
-def iniciar_jogo():
-    print("O jogo começou!")
-    import Chose
 
 mostrar_menu()
