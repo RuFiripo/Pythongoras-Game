@@ -16,5 +16,5 @@ Un neuvo etap:
    - ChatGPT:
         l'organisation de code et
         résolution de problèmes
-   -user3051734(stackoverfow):
+   - user3051734(stackoverfow):
         La base du code de Quiz
