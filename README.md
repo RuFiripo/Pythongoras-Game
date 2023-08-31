@@ -6,7 +6,7 @@ Un neuvo etap:
 # Les étapes 
      (X) Creaction d'une fenêtre
      (X) Par les boutons "start" et "exit".
-     (-) Faire un Quiz (Optionnel)
+     (-) Faire un Quiz
      
  # crédits :
    - @CodeDareProgramacao:
