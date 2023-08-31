@@ -5,10 +5,8 @@ Un neuvo etap:
   # maintenant le jeu est jouable
 # Les étapes 
      (X) Creaction d'une fenêtre
-     ( ) Par les boutons "start" et "exit".
-     ( ) Faire un Quiz (Optionnel)
-     ( ) Image illustrative
-     ( ) Aperçu du questionnaire (Optionnel)
+     (X) Par les boutons "start" et "exit".
+     (-) Faire un Quiz (Optionnel)
      
  # crédits :
    - @CodeDareProgramacao:
